@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template,jsonify
 app=Flask(__name__)#object of class
 JOBS=[
   {
@@ -31,5 +31,8 @@ def first():
   return render_template('home.html',
                          jobs=JOBS)
 
+@app.route("/api/jobs")#application programming interface-returns structured data (here-json) instead of html
+def list_jobs():
+  return jsonify(JOBS)
 if __name__=="__main__":
   app.run(host='0.0.0.0',debug=True)
