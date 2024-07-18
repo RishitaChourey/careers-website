@@ -1,5 +1,7 @@
 from sqlalchemy import create_engine, text
 from dotenv import load_dotenv
+from sqlalchemy.orm import sessionmaker
+from sqlalchemy.exc import SQLAlchemyError
 import os
 
 load_dotenv()
@@ -45,5 +47,45 @@ def load_job_from_db(id):
       return None
     else:
       return row
-    
+ 
 
+ 
+Session = sessionmaker(bind=engine)
+session = Session()
+def add_application_to_db(job_id, data):
+    try:
+        query = text("""
+            INSERT INTO applications (
+                job_id,
+                full_name,
+                email,
+                linkedin_url,
+                education,
+                work_experience,
+                resume_url
+            ) VALUES (
+                :job_id,
+                :full_name,
+                :email,
+                :linkedin_url,
+                :education,
+                :work_experience,
+                :resume_url
+            )
+        """)
+        session.execute(query, {
+            'job_id': job_id,
+            'full_name': data['full_name'],
+            'email': data['email'],
+            'linkedin_url': data['linkedin_url'],
+            'education': data['education'],
+            'work_experience': data['work_experience'],  # Corrected key
+            'resume_url': data['resume_url']
+        })
+        session.commit()
+        print("Data committed successfully.")
+    except SQLAlchemyError as e:
+        session.rollback()
+        print(f"An error occurred: {e}")
+    finally:
+        session.close()

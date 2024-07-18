@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% include 'bootstrap.html'%}
+    <title>Application Submited</title>
+</head>
+<body>
+    <div>
+        {% include 'header.html' %}
+    </div>
+    
+    <div class="container">
+        <h2>Application Submited Successfully!</h2>
+        <h4>Full Name</h4>
+        <div>
+            {{application['full_name']}}
+        </div>
+    
+        <h4>Email</h4>
+        <div>
+            {{application['email']}}
+        </div>
+    </div>
+    <div>
+        {% include 'footer.html' %}
+    </div>
+</body>
+</html>

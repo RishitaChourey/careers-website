@@ -18,13 +18,26 @@
         <h3>{{job.title}}</h3>
         <p class="lead">{{job.location}}</p>
         <h4>Responsibilities</h4>
-        <p>{{job.responsibilities}}</p>
+        <ul>
+            {% for line in job.responsibilities.split("\n") %}
+                {% if line.strip() %}
+                    <li>{{ line }}</li>
+                {% endif %}
+            {% endfor%}
+        </ul>
         <h4>Requirements</h4>
-        <p>{{job.requirements}}</p>
+        <ul>
+            {% for line in job.requirements.split("\n") %}
+                {% if line.strip() %}
+                    <li>{{ line }}</li>
+                {% endif %}
+            {% endfor%}
+        </ul>
         <h4>Salary</h4>
         <p> {{job.currency}}{{job.salary}}</p>
         
     </div>
+    {% include 'application_form.html' %}
     <div>
         {% include 'footer.html' %}
     </div>
