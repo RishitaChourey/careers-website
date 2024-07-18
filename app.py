@@ -1,5 +1,5 @@
 from flask import Flask, render_template,jsonify, request
-from database import load_job_from_db, load_jobs_from_db,add_application_to_db
+from database import load_job_from_db, load_jobs_from_db,add_application_to_db,db_port
 
 app=Flask(__name__)#object of class
 
@@ -34,4 +34,4 @@ def apply_to_job(id):
 
 
 if __name__=="__main__":
-  app.run(host='0.0.0.0',debug=True)
+  app.run(host='0.0.0.0',port=db_port,debug=True)
